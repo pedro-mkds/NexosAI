@@ -3,20 +3,20 @@ import React, { useState } from 'react';
 
 const STEPS = [
   {
-    title: "Professor Particular IA",
-    desc: "Tire dúvidas sobre qualquer matéria em tempo real. Um tutor paciente focado em te fazer aprender.",
+    title: "Nexos Tutor AI",
+    desc: "Tire dúvidas sobre qualquer matéria em tempo real. Um tutor paciente e inteligente focado em te fazer aprender.",
     icon: "fa-chalkboard-user",
     color: "bg-indigo-600"
   },
   {
-    title: "Correção por IA",
-    desc: "Envie sua redação e receba uma nota detalhada baseada nas 5 competências oficiais do ENEM.",
+    title: "Correção por Nexos AI",
+    desc: "Envie sua redação e receba uma nota detalhada baseada nas 5 competências oficiais do ENEM em poucos segundos.",
     icon: "fa-pen-nib",
     color: "bg-slate-800"
   },
   {
-    title: "Simulados e Temas",
-    desc: "Gere questões inéditas e descubra as apostas de temas baseadas nos últimos 6 meses de notícias.",
+    title: "Simulados e Radar",
+    desc: "Gere questões inéditas e descubra as apostas de temas baseadas nos últimos 6 meses de notícias do Brasil.",
     icon: "fa-bolt",
     color: "bg-amber-500"
   }
@@ -30,11 +30,11 @@ const JourneyGuideView: React.FC<{onComplete: () => void}> = ({ onComplete }) =>
   return (
     <div className="flex flex-col h-full bg-slate-50 p-8">
       <div className="flex-1 flex flex-col justify-center items-center text-center">
-        <div className={`w-24 h-24 ${STEPS[step].color} text-white rounded-full flex items-center justify-center text-4xl mb-8 shadow-2xl transition-all duration-500`}>
+        <div className={`w-24 h-24 ${STEPS[step].color} text-white rounded-[32px] flex items-center justify-center text-4xl mb-8 shadow-2xl transition-all duration-500 transform hover:scale-105`}>
           <i className={`fa-solid ${STEPS[step].icon}`}></i>
         </div>
-        <h2 className="text-2xl font-bold text-slate-800 mb-4">{STEPS[step].title}</h2>
-        <p className="text-slate-500 text-sm leading-relaxed max-w-xs">{STEPS[step].desc}</p>
+        <h2 className="text-2xl font-black text-slate-800 mb-4 tracking-tight">{STEPS[step].title}</h2>
+        <p className="text-slate-500 text-sm leading-relaxed max-w-xs font-medium">{STEPS[step].desc}</p>
       </div>
 
       <div className="space-y-6">
@@ -46,9 +46,9 @@ const JourneyGuideView: React.FC<{onComplete: () => void}> = ({ onComplete }) =>
 
         <button 
           onClick={() => isLast ? onComplete() : setStep(step + 1)}
-          className="w-full bg-indigo-600 text-white py-4 rounded-2xl font-bold shadow-lg active:scale-95 transition-transform"
+          className="w-full bg-slate-900 text-white py-5 rounded-3xl font-black shadow-xl active:scale-95 transition-all uppercase tracking-widest text-xs"
         >
-          {isLast ? 'Entendi, vamos lá!' : 'Próximo'}
+          {isLast ? 'Vamos Começar!' : 'Próximo Passo'}
         </button>
       </div>
     </div>

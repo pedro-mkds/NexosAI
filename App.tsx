@@ -29,10 +29,10 @@ const App: React.FC = () => {
   });
 
   useEffect(() => {
-    const accepted = localStorage.getItem('nexos_terms_accepted');
-    const seenGuide = localStorage.getItem('nexos_guide_seen');
-    const saved = localStorage.getItem('nexos_history');
-    const savedStats = localStorage.getItem('nexos_stats');
+    const accepted = localStorage.getItem('nexos_ai_terms_accepted');
+    const seenGuide = localStorage.getItem('nexos_ai_guide_seen');
+    const saved = localStorage.getItem('nexos_ai_history');
+    const savedStats = localStorage.getItem('nexos_ai_stats');
     
     if (saved) setHistory(JSON.parse(saved));
     if (savedStats) setStats(JSON.parse(savedStats));
@@ -44,7 +44,7 @@ const App: React.FC = () => {
 
   const handleUpdateStats = (newStats: UserStats) => {
     setStats(newStats);
-    localStorage.setItem('nexos_stats', JSON.stringify(newStats));
+    localStorage.setItem('nexos_ai_stats', JSON.stringify(newStats));
   };
 
   const handleSimulationComplete = (questions: SimulationQuestion[], userAnswers: number[]) => {
@@ -85,7 +85,7 @@ const App: React.FC = () => {
         newStats.nextLevelXp = Math.floor(prev.nextLevelXp * 1.5);
       }
 
-      localStorage.setItem('nexos_stats', JSON.stringify(newStats));
+      localStorage.setItem('nexos_ai_stats', JSON.stringify(newStats));
       return newStats;
     });
   };
@@ -93,7 +93,7 @@ const App: React.FC = () => {
   const saveToHistory = (correction: SavedCorrection) => {
     const newHistory = [correction, ...history];
     setHistory(newHistory);
-    localStorage.setItem('nexos_history', JSON.stringify(newHistory));
+    localStorage.setItem('nexos_ai_history', JSON.stringify(newHistory));
     
     setStats(prev => {
         let newXp = prev.xp + 100;
@@ -103,7 +103,7 @@ const App: React.FC = () => {
             newLevel++; newXp -= prev.nextLevelXp; newNext *= 1.5;
         }
         const s = {...prev, level: newLevel, xp: newXp, nextLevelXp: newNext, correctedEssays: prev.correctedEssays + 1};
-        localStorage.setItem('nexos_stats', JSON.stringify(s));
+        localStorage.setItem('nexos_ai_stats', JSON.stringify(s));
         return s;
     });
   };
@@ -111,8 +111,8 @@ const App: React.FC = () => {
   const renderContent = () => {
     if (loading) return null;
     switch (activeTab) {
-      case AppTab.ONBOARDING: return <OnboardingView onComplete={() => { localStorage.setItem('nexos_terms_accepted', 'true'); setActiveTab(AppTab.GUIDE); }} />;
-      case AppTab.GUIDE: return <JourneyGuideView onComplete={() => { localStorage.setItem('nexos_guide_seen', 'true'); setActiveTab(AppTab.HOME); }} />;
+      case AppTab.ONBOARDING: return <OnboardingView onComplete={() => { localStorage.setItem('nexos_ai_terms_accepted', 'true'); setActiveTab(AppTab.GUIDE); }} />;
+      case AppTab.GUIDE: return <JourneyGuideView onComplete={() => { localStorage.setItem('nexos_ai_guide_seen', 'true'); setActiveTab(AppTab.HOME); }} />;
       case AppTab.HOME: return <HomeView onNavigate={setActiveTab} history={history} stats={stats} onUpdateStats={handleUpdateStats} />;
       case AppTab.CORRECTION: return <CorrectionView onSave={saveToHistory} />;
       case AppTab.SIMULATION: return <SimulationView onNavigate={setActiveTab} onComplete={handleSimulationComplete} />;
@@ -127,7 +127,7 @@ const App: React.FC = () => {
   const showNav = activeTab !== AppTab.ONBOARDING && activeTab !== AppTab.GUIDE;
 
   return (
-    <div className="flex flex-col min-h-screen w-full max-w-md bg-white shadow-2xl relative overflow-x-hidden border-x border-slate-100">
+    <div className="app-container flex flex-col">
       {showNav && (
         <header className="bg-slate-900 text-white p-4 sticky top-0 z-50 flex items-center justify-between shadow-md border-b border-white/5">
           <div className="flex items-center gap-3">
@@ -146,7 +146,7 @@ const App: React.FC = () => {
       </main>
 
       {showNav && (
-        <nav className="bg-white/80 backdrop-blur-md border-t border-slate-100 h-20 fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md flex items-center justify-around z-50 shadow-[0_-10px_30px_rgba(0,0,0,0.05)] px-4">
+        <nav className="bg-white/90 backdrop-blur-xl border-t border-slate-100 h-20 absolute bottom-0 left-0 right-0 flex items-center justify-around z-50 shadow-[0_-10px_30px_rgba(0,0,0,0.05)] px-4">
           <NavButton active={activeTab === AppTab.HOME} icon="fa-house" label="Início" onClick={() => setActiveTab(AppTab.HOME)} />
           <NavButton active={activeTab === AppTab.CORRECTION} icon="fa-pen-nib" label="Redação" onClick={() => setActiveTab(AppTab.CORRECTION)} />
           <NavButton active={activeTab === AppTab.CHAT} icon="fa-brain" label="Nexos Chat" onClick={() => setActiveTab(AppTab.CHAT)} />

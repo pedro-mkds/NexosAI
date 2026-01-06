@@ -3,13 +3,13 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexos AI - Inteligência Educacional</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Nexos AI - Inteligência Educacional para o ENEM</title>
     
     <!-- SEO & Social Sharing -->
-    <meta name="description" content="Seu tutor IA para o ENEM. Redação, simulados e suporte especializado.">
+    <meta name="description" content="Acesse o Nexos AI: sua plataforma inteligente de correção de redação, simulados TRI e tutoria especializada para o ENEM.">
     <meta property="og:title" content="Nexos AI - Estude com Inteligência">
-    <meta property="og:description" content="Acesse simulados, correções de redação e tutoria 24h via inteligência artificial.">
+    <meta property="og:description" content="Sua nota 1000 começa aqui. Simulados, redações e tutoria IA em um só lugar.">
     <meta property="og:type" content="website">
     <meta name="theme-color" content="#4f46e5">
 
@@ -21,9 +21,14 @@
         body { 
             font-family: 'Inter', sans-serif; 
             overflow-x: hidden;
-            /* Fundo elegante para desktop */
-            background: radial-gradient(circle at top right, #e0e7ff 0%, #f8fafc 40%, #f1f5f9 100%);
+            background: #0f172a; /* Deep dark background */
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
+                radial-gradient(at 50% 0%, hsla(225,39%,30%,1) 0, transparent 50%), 
+                radial-gradient(at 100% 0%, hsla(339,49%,30%,1) 0, transparent 50%);
             min-height: 100vh;
+            display: flex;
+            justify-content: center;
         }
 
         .scrollbar-hide::-webkit-scrollbar { display: none; }
@@ -37,10 +42,32 @@
             animation: spin-slow 2s linear infinite;
         }
 
-        /* Estilo para parecer um app no desktop */
         #root {
+            width: 100%;
             display: flex;
             justify-content: center;
+        }
+
+        /* Efeito de App Mobile no Desktop */
+        .app-container {
+            width: 100%;
+            max-width: 450px;
+            background: white;
+            min-height: 100vh;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+        
+        @media (min-width: 640px) {
+            body {
+                padding: 20px 0;
+            }
+            .app-container {
+                min-height: calc(100vh - 40px);
+                border-radius: 40px;
+                overflow: hidden;
+                border: 8px solid #1e293b;
+            }
         }
     </style>
 <script type="importmap">
@@ -54,7 +81,7 @@
 }
 </script>
 </head>
-<body class="text-slate-900">
+<body>
     <div id="root"></div>
 </body>
 </html>
